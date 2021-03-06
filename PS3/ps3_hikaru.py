@@ -94,10 +94,10 @@ def get_word_score(word, n):
     
     # TO DO... Remove this line when you implement this function
     first_component = 0
-    wordlen = len(word)
+    wordlen = int(len(word))
     for char in word.lower():
         first_component += SCRABBLE_LETTER_VALUES[char]
-    second_component = max(7 * wordlen - 3 * (n - wordlen, 1))
+    second_component = max(7 * wordlen - 3 * (n - wordlen), 1)
     
     return first_component * second_component
 #
@@ -119,8 +119,9 @@ def display_hand(hand):
     for letter in hand.keys():
         for j in range(hand[letter]):
              print(letter, end=' ')      # print all on the same line
-    print()                              # print an empty line
+    print()  # print an empty line
 
+#print(display_hand({'a':1, 'x':2, 'l':3, 'e':1}))                             
 #
 # Make sure you understand how this function works and what it does!
 # You will need to modify this for Problem #4.
