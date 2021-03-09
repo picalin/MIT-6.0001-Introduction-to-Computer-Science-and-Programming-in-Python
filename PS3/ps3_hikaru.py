@@ -141,7 +141,8 @@ def deal_hand(n):
     """
     
     hand={}
-    num_vowels = int(math.ceil(n / 3))
+    num_vowels = int(math.ceil(n / 3) - 1)
+    hand['*'] = 1
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -199,7 +200,6 @@ def is_valid_word(word, hand, word_list):
     """
     check_hand = hand.copy()
     word = word.lower()
-    i = 0
     for i in range(len(word)):
         if word[i] in check_hand:
             for char1 in check_hand:
