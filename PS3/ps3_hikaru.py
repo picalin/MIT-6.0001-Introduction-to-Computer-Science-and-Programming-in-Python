@@ -3,9 +3,9 @@
 # The 6.0001 Word Game
 # Created by: Kevin Luu <luuk> and Jenna Wiens <jwiens>
 #
-# Name          : <your name>
-# Collaborators : <your collaborators>
-# Time spent    : <total time>
+# Name          : Hikaru Shoda
+# Collaborators : 
+# Time spent    : 
 
 import math
 import random
@@ -121,7 +121,7 @@ def display_hand(hand):
              print(letter, end=' ')      # print all on the same line
     print()  # print an empty line
 
-#print(display_hand({'a':1, 'x':2, 'l':3, 'e':1}))                             
+display_hand({'a':1, 'x':2, 'l':3, 'e':1})                            
 #
 # Make sure you understand how this function works and what it does!
 # You will need to modify this for Problem #4.
@@ -174,8 +174,14 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
-
-    pass  # TO DO... Remove this line when you implement this function
+    new_hand = hand.copy() #copy hand
+    for char1 in word.lower(): #e.g 'Squil' -> 'squil' then, every word in 'squil'    
+        for char2 in new_hand: #every new_hand key
+            if char1 == char2:
+                if new_hand[char2] > 0:
+                    new_hand[char2] -= 1 
+    return new_hand
+        
 
 #
 # Problem #3: Test word validity
@@ -191,8 +197,23 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     returns: boolean
     """
+    check_hand = hand.copy()
+    checkhand =""  #eg "axxllle"
+    for letter in check_hand.keys():
+        for j in range(hand[letter]):
+             checkhand += letter
+    
+    
 
-    pass  # TO DO... Remove this line when you implement this function
+    for char1 in word.lower():
+        if char1 in checkhand:
+            for i in range(checkhand):
+                
+               
+            
+                    
+    return all(word in word_list, 
+    # TO DO... Remove this line when you implement this function
 
 #
 # Problem #5: Playing a hand
