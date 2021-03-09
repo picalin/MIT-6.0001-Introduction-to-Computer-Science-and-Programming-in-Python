@@ -198,21 +198,21 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
     check_hand = hand.copy()
-    checkhand =""  #eg "axxllle"
-    for letter in check_hand.keys():
-        for j in range(hand[letter]):
-             checkhand += letter
-    
-    
-
-    for char1 in word.lower():
-        if char1 in checkhand:
-            for i in range(checkhand):
-                
-               
-            
-                    
-    return all(word in word_list, 
+    word = word.lower()
+    i = 0
+    for i in range(len(word)):
+        if word[i] in check_hand:
+            for char1 in check_hand:
+                if word[i] == char1:
+                    if check_hand[char1] > 0:
+                        check_hand[char1] -= 1
+                        i += 1
+                        break
+                    else:
+                        return False
+        else:
+            return False
+    return word in word_list
     # TO DO... Remove this line when you implement this function
 
 #
