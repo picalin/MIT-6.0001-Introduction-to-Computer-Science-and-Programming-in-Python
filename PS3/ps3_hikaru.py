@@ -13,6 +13,7 @@ import string
 
 VOWELS = 'aeiou'
 CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
+ALPHABET = VOWELS + CONSONANTS
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
@@ -349,12 +350,22 @@ def substitute_hand(hand, letter):
     """
     #input the letter
     #if the letter is in the hand
+    if letter in hand and hand[letter] > 0:
         #remove from the hand
-        #remove the letter from the VOWELS copy
-        #then choose from VOWELS.copy
+        hand[letter] -= 1
+        #remove the letter from the ALPHABET_copy
+        ALPHABET_copy = ALPHABET
+        #then remove letter from VOWELS.copy
+        ALPHABET_copy.replace(letter, "")
+        #choose random word from VOWELS_copy
+        new_letter = random.choice(ALPHABET_copy)
         #input to the hand
-    #else nothing to do
-    pass  # TO DO... Remove this line when you implement this function
+        hand[new_letter] = 1
+    #else is pass
+    else:
+        pass
+    return hand
+
        
     
 def play_game(word_list):
