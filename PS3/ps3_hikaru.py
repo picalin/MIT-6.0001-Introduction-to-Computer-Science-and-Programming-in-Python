@@ -16,7 +16,7 @@ CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
-    'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
+    'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10, '*': 0
 }
 
 # -----------------------------------
@@ -200,19 +200,32 @@ def is_valid_word(word, hand, word_list):
     """
     check_hand = hand.copy()
     word = word.lower()
-    for i in range(len(word)):
-        if word[i] in check_hand:
-            for char1 in check_hand:
-                if word[i] == char1:
-                    if check_hand[char1] > 0:
-                        check_hand[char1] -= 1
-                        i += 1
-                        break
-                    else:
-                        return False
-        else:
-            return False
-    return word in word_list
+    def check_word_and_hand(word, check_hand): #check the hand can produce the word
+        for j in range(len(word)):
+            if word[j] in check_hand:
+                for char1 in check_hand:
+                    if word[j] == char1:
+                        if check_hand[char1] > 0:
+                            check_hand[char1] -= 1
+                            j += 1
+                            break
+                        else:
+                            return False
+            else:
+                return False
+        return True
+        
+
+    if '*' in word:
+        asterisk = word.find('*')  #find asterisk place in word
+        for i in range(len(VOWELS)):
+            replaced_word = word.replace(word[asterisk], VOWELS[i])
+            if replaced_word in word_list:
+                break
+        return replaced_word in word_list and check_word_and_hand(word, check_hand)
+    
+    else:
+        return word in word_list and check_word_and_hand(word, check_hand)
     # TO DO... Remove this line when you implement this function
 
 #
