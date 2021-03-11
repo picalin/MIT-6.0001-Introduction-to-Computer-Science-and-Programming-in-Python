@@ -312,6 +312,7 @@ def play_hand(hand, word_list):
         print("Ran out of letters")
     # so tell user the total score
     print("total score for this hand: {}" .format(total_score))
+    print()
     # Return the total score as result of function
     return total_score
 
@@ -429,34 +430,47 @@ def play_game(word_list):
     print('Rule: \n1: Make words as possible as you can from your hand!')
     print('2: Word score is', "\n'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10, '*': 0'")
     print('3: You can replay with your hand one time')
+    print('4: You can substitute your hand\'s letter one time')
     total_score = 0
-    answer_to_replay_hand_question = 'no'
-    answer_to_substitute_question = 'no'
-    total_num_of_hands = int(input('Enter total number of turns: '))
+    # global hand
+    # hand = deal_hand(HAND_SIZE)
+    substitute_letter_used = 0
+    replay_hand_used = 0
+    total_num_of_hands = int(input('Enter total number of hands: '))
+    #---------------real game starts from here------------------
     for num_of_hands in range(total_num_of_hands):
-        if num_of_hands > 0 and answer_to_replay_hand_question == 'no':            
-            answer_to_replay_hand_question = input('Would you like to replay the hand? ')
-            hand = deal_hand(HAND_SIZE)
-            
+        hand = deal_hand(HAND_SIZE)
+    
         
-        print('Current Hand: ', end='')
-        display_hand(hand)      
-        
-        #Question if player substitute
-        if num_of_hands > 0 and answer_to_substitute_question == 'no':
+#Question if player want substitute
+        if substitute_letter_used == 0:
+            print('Current Hand: ', end='')
+            display_hand(hand) 
             print('Would you like to substitute a letter?')
             if Yes_No_question() == True:
+                substitute_letter_used += 1
                 letter_to_be_replaced = input('Which letter would you like to replace?: ').lower()
                 hand = substitute_hand(hand, letter_to_be_replaced)
             else:
                 pass
                 
-        
-        # substitute_question(hand)
-        
-        total_score += play_hand(hand, word_list)
+        hand_score = play_hand(hand, word_list)
+  
         print('---------------')
         
+        #Question if player want to replay (only one time)
+        if replay_hand_used == 0:            
+            print('Would you like to replay the hand? ')
+            if Yes_No_question() == True:
+               replay_hand_used += 1
+               replay_hand_score = play_hand(hand, word_list)
+               first_score = hand_score
+               hand_score = max(first_score, replay_hand_score)           
+               print('Replayed hand score is {} and first hand score is {}, so the score is {}' .format(replay_hand_score, first_score, hand_score)) 
+               print()
+            else:
+                pass
+        total_score += hand_score
     
     print('Total score over all hands: {}'.format(total_score))    
 
