@@ -142,10 +142,10 @@ def deal_hand(n):
     """
     
     hand={}
-    num_vowels = int(math.ceil(n / 3) - 1)
+    num_vowels = int(math.ceil(n / 3))
     hand['*'] = 1
 
-    for i in range(num_vowels):
+    for i in range(num_vowels - 1):
         x = random.choice(VOWELS)
         hand[x] = hand.get(x, 0) + 1
     
@@ -366,6 +366,30 @@ def substitute_hand(hand, letter):
         pass
     return hand
 
+#substitute_question
+# def substitute_question(hand):
+                        
+#     answer_to_substitute_question = input('Would you like to substitute a letter? \nPlease respond with "yes" or "no" [y/N]: ').lower()
+#     if answer_to_substitute_question in ['y', 'ye', 'yes']:
+#         letter_to_be_replaced = input('Which letter would you like to replace?: ').lower()
+#         hand = substitute_hand(hand, letter_to_be_replaced)
+#     elif answer_to_substitute_question in ['n', 'no']:
+#         pass
+#     else:
+#         print('Please input "Yes" or "No"')
+#         substitute_question(hand)
+#     return 
+
+#Yes No question
+def Yes_No_question():
+    answer = input('Please respond with "yes" or "no" [y/N]: ').lower()
+    if answer in ['y', 'ye', 'yes']:
+        return True
+    elif answer in ['n', 'no']:
+        return False
+    else:
+        Yes_No_question()
+
        
     
 def play_game(word_list):
@@ -399,8 +423,42 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    # print("play_game not implemented.") # TO DO... Remove this line when you implement this function
+    print('******Welcome to the word game******')
+    print('')
+    print('Rule: \n1: Make words as possible as you can from your hand!')
+    print('2: Word score is', "\n'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10, '*': 0'")
+    print('3: You can replay with your hand one time')
+    total_score = 0
+    answer_to_replay_hand_question = 'no'
+    answer_to_substitute_question = 'no'
+    total_num_of_hands = int(input('Enter total number of turns: '))
+    for num_of_hands in range(total_num_of_hands):
+        if num_of_hands > 0 and answer_to_replay_hand_question == 'no':            
+            answer_to_replay_hand_question = input('Would you like to replay the hand? ')
+            hand = deal_hand(HAND_SIZE)
+            
+        
+        print('Current Hand: ', end='')
+        display_hand(hand)      
+        
+        #Question if player substitute
+        if num_of_hands > 0 and answer_to_substitute_question == 'no':
+            print('Would you like to substitute a letter?')
+            if Yes_No_question() == True:
+                letter_to_be_replaced = input('Which letter would you like to replace?: ').lower()
+                hand = substitute_hand(hand, letter_to_be_replaced)
+            else:
+                pass
+                
+        
+        # substitute_question(hand)
+        
+        total_score += play_hand(hand, word_list)
+        print('---------------')
+        
     
+    print('Total score over all hands: {}'.format(total_score))    
 
 
 #
