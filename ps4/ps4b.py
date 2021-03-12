@@ -1,5 +1,5 @@
 # Problem Set 4B
-# Name: <your name here>
+# Name: Hikaru
 # Collaborators:
 # Time Spent: x:xx
 
@@ -70,7 +70,9 @@ class Message(object):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        self.message_text = text
+        self.valid_words = load_words(WORDLIST_FILENAME)
+        
 
     def get_message_text(self):
         '''
@@ -78,7 +80,7 @@ class Message(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text
 
     def get_valid_words(self):
         '''
@@ -87,7 +89,8 @@ class Message(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+        valid_word_copy = self.valid_words
+        return valid_word_copy
 
     def build_shift_dict(self, shift):
         '''
@@ -103,7 +106,16 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        pass #delete this line and replace with your code here
+        lower_letters = string.ascii_lowercase
+        upper_letters = string.ascii_uppercase
+        dictionary ={}
+        for i in range(len(lower_letters)):
+            real_shift = (i + shift) % 26
+            dictionary[lower_letters[i]] = lower_letters[real_shift]
+        for i in range(len(upper_letters)):
+            real_shift = (i + shift) % 26
+            dictionary[upper_letters[i]] = upper_letters[real_shift]
+        return dictionary
 
     def apply_shift(self, shift):
         '''
@@ -117,7 +129,11 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        dictionary = self.build_shift_dict(shift)
+        word =""
+        for letter in self.message_text:
+            word = word + dictionary[letter]
+        return word
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
