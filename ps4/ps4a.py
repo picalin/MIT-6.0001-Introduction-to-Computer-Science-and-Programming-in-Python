@@ -1,5 +1,5 @@
 # Problem Set 4A
-# Name: Hikaru Shoda
+# Name: Picalin
 # Collaborators:
 # Time Spent: x:xx
 
@@ -66,4 +66,4 @@ if __name__ == '__main__':
 
     pass #delete this line and replace with your code here
 
-    print(get_permutations('ab'))
+    print(get_permutations('aeiou'))

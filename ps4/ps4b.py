@@ -1,5 +1,5 @@
 # Problem Set 4B
-# Name: Hikaru
+# Name: Picalin
 # Collaborators:
 # Time Spent: x:xx
 
@@ -105,13 +105,13 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        lower_letters = string.ascii_lowercase
-        upper_letters = string.ascii_uppercase
+        lower_letters = string.ascii_lowercase #'abcdefghijklmnopqrstuvwxyz'
+        upper_letters = string.ascii_uppercase #'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         dictionary ={}
-        for i in range(len(lower_letters)):
+        for i in range(26):
             real_shift = (i + shift) % 26
             dictionary[lower_letters[i]] = lower_letters[real_shift]
-        for i in range(len(upper_letters)):
+        for i in range(26):
             real_shift = (i + shift) % 26
             dictionary[upper_letters[i]] = upper_letters[real_shift]
         return dictionary
@@ -246,6 +246,8 @@ class CiphertextMessage(Message):
                 max_number_of_real_words = number_of_real_words
                 best_shift = shift
                 decrypted_message = decoded_message
+            else:
+                pass
         return (best_shift, decrypted_message)
 
 if __name__ == '__main__':
@@ -267,15 +269,15 @@ if __name__ == '__main__':
 #     print('Expected Output: O gs g yavkx sgt.')
 #     print('Actual Output:', plaintext.get_message_text_encrypted())
 
-# #     #test case for CiphertextMessage
-#     ciphertext = CiphertextMessage('O gs g yavkx sgt.')
-#     print('Expected Output:', (20, 'I am a super man.'))
-#     print('Actual Output:', ciphertext.decrypt_message())
+    #test case for CiphertextMessage
+    # ciphertext = CiphertextMessage('O gs g yavkx sgt!!!!!@.')
+    # print('Expected Output:', (20, 'I am a super man!!!!!@.'))
+    # print('Actual Output:', ciphertext.decrypt_message())
 
 
-# #    TODO: best shift value and unencrypted story 
-    ciphertext = CiphertextMessage(get_story_string())
-    print('Best shift value:', ciphertext.decrypt_message()[0])
-    print('unencrypted story:\n',ciphertext.decrypt_message()[1])
+    #TODO: best shift value and unencrypted story 
+    # ciphertext = CiphertextMessage(get_story_string())
+    # print('Best shift value:', ciphertext.decrypt_message()[0])
+    # print('unencrypted story:\n',ciphertext.decrypt_message()[1])
     
 #     pass #delete this line and replace with your code here
