@@ -183,6 +183,8 @@ class EncryptedSubMessage(SubMessage):
         '''
         list_permutation_vowels = get_permutations(VOWELS_LOWER)
         max_number_of_real_words = 0
+        best_vowels_order = [] 
+        decrypted_message = []
         
         for l in list_permutation_vowels:
             number_of_real_words = 0
@@ -197,11 +199,12 @@ class EncryptedSubMessage(SubMessage):
                     pass
             if number_of_real_words > max_number_of_real_words:
                 max_number_of_real_words = number_of_real_words
-                best_vowels_order = [l] 
+                best_vowels_order = [l]
                 decrypted_message = [decoded_message]
             elif number_of_real_words == max_number_of_real_words: #in case 
                 best_vowels_order.append(l)
-                decrypted_message.append(decoded_message)
+                if not decoded_message in decrypted_message:
+                    decrypted_message.append(decoded_message)
             else:             
                 pass
         return (best_vowels_order, decrypted_message)
@@ -212,24 +215,24 @@ class EncryptedSubMessage(SubMessage):
 if __name__ == '__main__':
 
     # Example test case
-    # message = SubMessage("Hello World!")
-    # permutation = "eaiuo"
-    # enc_dict = message.build_transpose_dict(permutation)
-    # print("Original message:", message.get_message_text(), "Permutation:", permutation)
-    # print("Expected encryption:", "Hallu Wurld!")
-    # print("Actual encryption:", message.apply_transpose(enc_dict))
-    # enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
-    # print("Decrypted message:", enc_message.decrypt_message())
-
-    #TODO: WRITE YOUR TEST CASES HERE
-    message = SubMessage("I hope tomorrow will be sunny!")
-    permutation = "uiaeo"
+    message = SubMessage("Hello World!")
+    permutation = "eaiuo"
     enc_dict = message.build_transpose_dict(permutation)
     print("Original message:", message.get_message_text(), "Permutation:", permutation)
-    print("Expected encryption:", "A hepi temerrew wall bi sonny!")
+    print("Expected encryption:", "Hallu Wurld!")
     print("Actual encryption:", message.apply_transpose(enc_dict))
     enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
     print("Decrypted message:", enc_message.decrypt_message())
+
+    #TODO: WRITE YOUR TEST CASES HERE
+    # message = SubMessage("I hope tomorrow will be sunny!")
+    # permutation = "uiaeo"
+    # enc_dict = message.build_transpose_dict(permutation)
+    # print("Original message:", message.get_message_text(), "Permutation:", permutation)
+    # print("Expected encryption:", "A hepi temerrew wall bi sonny!")
+    # print("Actual encryption:", message.apply_transpose(enc_dict))
+    # enc_message = EncryptedSubMessage(message.apply_transpose(enc_dict))
+    # print("Decrypted message:", enc_message.decrypt_message())
     
     #test2
     # message = SubMessage("A cold breeze was stirring. There was light traffic to Oakland, heavier than in the closed world, surely far lighter than the traffic in a fully open world will be. The day was nearing the anniversary of Gov. Gavin Newsom's shelter in place order. My phone reminded me that this time a year ago, I'd made a huge shopping trip out of wild hope that somehow enough groceries would help us weather this thing out. I saluted the self who believed at that moment that she could buy enough frozen chicken to last a pandemic.")
