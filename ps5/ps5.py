@@ -56,6 +56,29 @@ def process(url):
 
 # TODO: NewsStory
 
+class NewsStory(object):
+    def __init__(self, guid, title, description, link, pubdate):
+        self.guid = guid
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubdate = pubdate
+        
+    def get_guid(self):
+        return self.guid
+    
+    def get_title(self):
+        return self.title
+    
+    def get_description(self):
+        return self.description
+    
+    def get_link(self):
+        return self.link
+    
+    def get_pubdate(self):
+        return self.pubdate
+
 
 #======================
 # Triggers
@@ -71,7 +94,17 @@ class Trigger(object):
         raise NotImplementedError
 
 # PHRASE TRIGGERS
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        self.phrase = phrase.lower()
+        
+    def is_in_phrase(self, text):
+        text = text.lower()
+        for char in string.punctuation:
+            
 
+# PhraseTrigger("The purple cow is soft and cuddly")
+# print(PhraseTrigger.__init__)
 # Problem 2
 # TODO: PhraseTrigger
 
