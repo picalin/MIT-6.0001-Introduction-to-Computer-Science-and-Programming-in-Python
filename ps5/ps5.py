@@ -94,19 +94,44 @@ class Trigger(object):
         raise NotImplementedError
 
 # PHRASE TRIGGERS
-class PhraseTrigger(Trigger):
-    def __init__(self, phrase):
-        self.phrase = phrase.lower()
+
         
-    def is_in_phrase(self, text):
-        text = text.lower()
-        for char in string.punctuation:
             
 
 # PhraseTrigger("The purple cow is soft and cuddly")
 # print(PhraseTrigger.__init__)
 # Problem 2
 # TODO: PhraseTrigger
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        self.phrase = phrase.lower()
+        
+    def is_in_phrase(self, text):
+        text = text.lower()
+        #1: remove punctuation in text
+        for char1 in string.punctuation:
+            text = text.replace(char1, ' ')
+        word_list = text.split(' ')
+        #2: remove space factor in word_list
+        while '' in word_list:
+            word_list.remove('')
+            
+        #3: make phrase list
+        phrase_list = self.phrase.split(' ')
+        #4: 連番でフレーズリストがtextにあればTrue
+        check = []
+        for char2 in phrase_list:
+            for i, char3 in enumerate(word_list):
+                if char2 == char3:
+                    check.append(i)
+        
+        if len(check) < len(phrase_list):
+            return False
+        for i in range(len(check)-1):
+            if check[i + 1] - check[i] != 1:
+                return False
+        return True
+                    
 
 # Problem 3
 # TODO: TitleTrigger
