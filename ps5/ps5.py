@@ -116,25 +116,36 @@ class PhraseTrigger(Trigger):
         while '' in word_list:
             word_list.remove('')
             
-        #3: make phrase list
-        phrase_list = self.phrase.split(' ')
-        #4: 連番でフレーズリストがtextにあればTrue
-        check = []
-        for char2 in phrase_list:
-            for i, char3 in enumerate(word_list):
-                if char2 == char3:
-                    check.append(i)
+        #3: make list of phrase
+        list_phrase = self.phrase.split()
+        '''
+        #4: if list_phrase[0] is in word_list, then make a new_word_list which
+        len is same as list_phrase.
+        Then if new_word_list == list_phrase, return True
+        otherwise, keep loop
         
-        if len(check) < len(phrase_list):
+        '''
+        if len(word_list) < len(list_phrase):
             return False
-        for i in range(len(check)-1):
-            if check[i + 1] - check[i] != 1:
-                return False
-        return True
-                    
+        for i in range(len(word_list)-len(list_phrase) + 1):
+            if word_list[i] == list_phrase[0]:
+                new_word_list = word_list[i:len(list_phrase) + i]
+                if new_word_list == list_phrase:
+                    return True
+        return False
 
 # Problem 3
 # TODO: TitleTrigger
+class TitleTrigger(PhraseTrigger):
+    def evaluate(self, story):
+        #[story] is one of the instances of NewsStory
+        return self.is_in_phrase(story.get_title())
+    
+    
+import japanese
+
+
+
 
 # Problem 4
 # TODO: DescriptionTrigger
